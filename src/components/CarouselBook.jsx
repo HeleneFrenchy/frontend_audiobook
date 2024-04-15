@@ -27,13 +27,13 @@ export function CarouselBook() {
     >
       <CarouselContent>
         {images.map((url, index) => (
-          <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+          <CarouselItem key={index} className="w-full md:basis-2/6">
             <div>
               <Card>
-                <CardContent className="flex aspect-square items-center justify-center p-6">
+                <CardContent className="flex aspect-square items-center justify-center p-0">
                   <img
                     src={url}
-                    className="object-cover w-full h-full rounded-md "
+                    className="object-cover rounded-md h-full w-full"
                   />
                 </CardContent>
               </Card>
@@ -47,4 +47,4 @@ export function CarouselBook() {
   );
 }
 
-export default CarouselBook;
+export default CarouselBook

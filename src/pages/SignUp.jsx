@@ -106,7 +106,10 @@ export default function Signup() {
               </FormItem>
             )}
           />
-          <Button type="submit" className="bg-green-300 text-black">
+          <Button
+            type="submit"
+            className="bg-green-300 text-black hover:bg-green-500"
+          >
             Create account
           </Button>
         </form>

@@ -9,7 +9,9 @@ const Discover = () => {
           Discover a new world with the best stories for kids!
         </h1>
         <div className="flex justify-center mt-10 py-1 px-3 rounded-md bg-white">
-          <button>Register now</button>
+          <Link to="/signup">
+            <button>Register now</button>
+          </Link>
         </div>
       </section>
       <section className="w-full  flex-center">

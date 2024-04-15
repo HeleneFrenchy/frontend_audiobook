@@ -10,9 +10,6 @@ export default function Profile() {
         <h3 className="text-lg leading-6 font-medium text-gray-900 dark:text-white">
           User Profile
         </h3>
-        <p className="mt-1 max-w-2xl text-sm text-gray-500 dark:text-white">
-          This is some information about the user.
-        </p>
       </div>
       <div className="border-t border-gray-200 px-4 py-5 sm:p-0">
         <dl className="sm:divide-y sm:divide-gray-200">
@@ -44,7 +41,7 @@ export default function Profile() {
       </div>
       <div className="py-5 text-center">
         <Link to="/updateprofile">
-          <button className="bg-green-300 text-black h-8 rounded-md px-3">
+          <button className="bg-green-300  hover:bg-green-500 text-black h-8 rounded-md px-3">
             Edit Profile
           </button>
         </Link>

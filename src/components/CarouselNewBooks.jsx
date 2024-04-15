@@ -26,10 +26,10 @@ export function CarouselNewBooks() {
     >
       <CarouselContent>
         {images.map((url, index) => (
-          <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+          <CarouselItem key={index} className="basis-1/3 lg:basis-1/3">
             <div>
               <Card>
-                <CardContent className="flex aspect-square items-center justify-center p-6">
+                <CardContent className="flex aspect-square items-center justify-center p-0">
                   <img
                     src={url}
                     className="object-cover w-full h-full rounded-md

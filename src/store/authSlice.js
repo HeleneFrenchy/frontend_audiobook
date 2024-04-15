@@ -18,9 +18,7 @@ export const authSlice = createSlice({
         };
       }
     );
-    // builder.addMatcher(api.endpoints.logout.matchFulfilled, (state) => {
-    //   // Clear user state on logout
-    //   state.user = null;
+    // builder.addMatcher(api.endpoints.logout.matchFulfilled, (state, action) => { state.user = null;
     // });
   },
 });

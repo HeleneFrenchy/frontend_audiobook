@@ -6,7 +6,7 @@ import { SunIcon, UserCircleIcon } from "@heroicons/react/24/outline";
 import { useDarkMode } from "components/DarkModeContext";
 
 const Navbar = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  
 
   const { isDarkMode, setIsDarkMode } = useDarkMode();
   const changeMode = () => {
@@ -19,7 +19,7 @@ const Navbar = () => {
 
   return (
     <nav className="flex items-center justify-between flex-wrap py-2 bg-green-300 dark:text-black">
-      <Link href="/">
+      <Link to="/">
         <img
           className="rounded-full ml-3"
           src="/images/logo.jpeg"
@@ -37,17 +37,17 @@ const Navbar = () => {
           </Link>
         </div>
         <div className="mr-3">
-          {isAuthenticated ? (
-            <button className="hover:bg-green-500 py-1 px-2 rounded-lg">
+          
+            <button className= "hover:bg-green-500 py-1 px-2 rounded-lg">
               <UserCircleIcon className="h-6 w-6" />
             </button>
-          ) : (
+          
             <Link to="/login">
               <button className="hover:bg-green-500 py-1 px-2 rounded-lg">
                 Login
               </button>
             </Link>
-          )}
+          
         </div>
         <div>
           <button onClick={changeMode} className="pr-3 pt-1">

@@ -88,7 +88,10 @@ export default function Login() {
               </FormItem>
             )}
           />
-          <Button type="submit" className="bg-green-300 text-black">
+          <Button
+            type="submit"
+            className="bg-green-300 hover:bg-green-500 text-black"
+          >
             Login
           </Button>
         </form>
