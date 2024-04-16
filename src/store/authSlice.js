@@ -2,7 +2,9 @@ import { createSlice } from "@reduxjs/toolkit";
 import { authApi } from "./authApi";
 
 const initialState = {
-  user: null,
+  user: localStorage.getItem("userToken")
+    ? { token: localStorage.getItem("userToken") }
+    : null,
 };
 
 export const authSlice = createSlice({
@@ -16,6 +18,8 @@ export const authSlice = createSlice({
         state.user = {
           token: action.payload.token,
         };
+
+        localStorage.setItem("userToken", action.payload.token);
       }
     );
     // builder.addMatcher(api.endpoints.logout.matchFulfilled, (state, action) => { state.user = null;

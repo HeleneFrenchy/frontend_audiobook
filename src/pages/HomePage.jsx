@@ -12,13 +12,7 @@ const HomePage = () => {
     <div>
       <Discover />
       <CarouselBook/>
-      {/* <Carousel>
-        <CarouselContent className="-ml-4">
-          <CarouselItem className="pl-4">...</CarouselItem>
-          <CarouselItem className="pl-4">...</CarouselItem>
-          <CarouselItem className="pl-4">...</CarouselItem>
-        </CarouselContent>
-      </Carousel> */}
+      
       <FAQ />
     </div>
   );

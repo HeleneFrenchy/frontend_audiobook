@@ -1,16 +1,23 @@
-import React from "react";
 import { TrashIcon } from "@heroicons/react/24/outline";
-import { useDispatch, useSelector } from "react-redux";
-import { removeFromCart } from "store/cartSlice";
+import { useDeleteBooksFromCartMutation, useGetCartQuery } from "store/userApi";
+import { useGetBooksQuery } from "store/bookApi";
 
 const ShoppingCart = () => {
-  const booksShoppingCart = useSelector((state) => state.cart.items);
-  const dispatch = useDispatch();
+  const { data: cart = [] } = useGetCartQuery();
+  const { data: books = [] } = useGetBooksQuery();
+  const [removeItem] = useDeleteBooksFromCartMutation();
+  const cartBooks = cart
+    .map((bookId) => books.find((book) => book._id === bookId))
+    .filter(Boolean);
+
+  const handleRemoveItem = (bookId) => {
+    removeItem(bookId);
+  };
 
   return (
     <div className="container mx-auto">
       <h2 className="mt-6 text-center text-lg">Shopping Basket</h2>
-      {booksShoppingCart.map((book, index) => (
+      {cartBooks.map((book, index) => (
         <div
           key={index}
           className="flex flex-col md:flex-row justify-between mx-5"
@@ -26,7 +33,7 @@ const ShoppingCart = () => {
           <div className="mt-10 flex flex-col text-sm">
             <h3>Quantity</h3>
             <div className="flex items-center justify-center">
-              <p className="text-sm mx-3">{book.quantity}</p>
+              <p className="text-sm mx-3">1</p>
             </div>
           </div>
           <div className="mt-10 flex flex-col text-sm ">
@@ -40,7 +47,7 @@ const ShoppingCart = () => {
             </p>
           </div>
           <div className="mt-10 flex flex-col text-sm ">
-            <button onClick={() => dispatch(removeFromCart(book.id))}>
+            <button onClick={() => handleRemoveItem(book._id)}>
               <TrashIcon className="mt-1 w-4 h-4" />
             </button>
           </div>

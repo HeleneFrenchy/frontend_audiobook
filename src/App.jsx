@@ -14,7 +14,9 @@ import { DarkModeProvider } from "components/DarkModeContext";
 import HomePage from "pages/HomePage";
 import Navbar from "components/Navbar";
 
-function App() {
+
+function App () {
+
   return (
     <>
       <DarkModeProvider>
