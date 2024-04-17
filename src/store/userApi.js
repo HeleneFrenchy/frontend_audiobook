@@ -5,42 +5,34 @@ export const userApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:3001/users",
     prepareHeaders: (headers, { getState }) => {
-      // Retrieve the token from the Redux state
       const token = getState().auth.user?.token;
       if (token) {
-        // Set the Authorization header with the token
         headers.set("Authorization", `Bearer ${token}`);
       }
 
       return headers;
     },
   }),
+  tagTypes: ["Books", "Cart"],
+
   endpoints: (builder) => ({
     getBooksUser: builder.query({
-      query: ({ userID }) => ({
-        url: `users/books/`,
+      query: ( ) => ({
+        url: `/books/`,
         method: "GET",
       }),
     }),
 
-    postBook: builder.mutation({
-      query: ({ userID, bookId }) => ({
-        url: `users/books/${userID}/${bookId}`,
-        method: "POST",
-        body: {},
-      }),
-    }),
-    // => SAME AS PURCHASE?????
-
     deleteBook: builder.mutation({
-      query: ({ userID, bookId }) => ({
-        url: `users/books/${userID}/${bookId}`,
+      query: ({bookId }) => ({
+        url: `/books/${bookId}`,
         method: "DELETE",
         body: {},
       }),
     }),
 
     getCart: builder.query({
+      providesTags: ["Cart"],
       query: () => ({
         url: `/cart`,
         method: "GET",
@@ -52,6 +44,7 @@ export const userApi = createApi({
         url: `/${bookId}/cart`,
         method: "POST",
       }),
+      invalidatesTags: ["Cart"],
     }),
 
     deleteBooksFromCart: builder.mutation({
@@ -59,6 +52,7 @@ export const userApi = createApi({
         url: `/${bookId}/cart`,
         method: "DELETE",
       }),
+      invalidatesTags: ["Cart"],
     }),
 
     buyBook: builder.mutation({
@@ -71,7 +65,7 @@ export const userApi = createApi({
   }),
 });
 export const {
-  useGetBooksUserMutation,
+  useGetBooksUserQuery,
   useDeleteBookMutation,
   usePostBookMutation,
   useAddBooksToCartMutation,

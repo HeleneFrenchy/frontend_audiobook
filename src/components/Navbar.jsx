@@ -1,13 +1,19 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
-import { SunIcon, UserCircleIcon } from "@heroicons/react/24/outline";
-
+import {
+  SunIcon,
+  ShoppingCartIcon,
+  Bars3Icon,
+} from "@heroicons/react/24/outline";
+import {Login} from "pages/Login"
+import Sidebar from "components/Sidebar";
 import { useDarkMode } from "components/DarkModeContext";
+import { useState } from "react";
 
-const Navbar = () => {
-  
 
+
+const Navbar = ({Login}) => {
+   const [showSidebar, setShowSidebar] = useState(false);
   const { isDarkMode, setIsDarkMode } = useDarkMode();
   const changeMode = () => {
     if (isDarkMode == false) {
@@ -15,6 +21,9 @@ const Navbar = () => {
     } else {
       setIsDarkMode(false);
     }
+  };
+  const toggleSidebar = () => {
+    setShowSidebar(!showSidebar);
   };
 
   return (
@@ -38,26 +47,36 @@ const Navbar = () => {
         </div>
       </section>
       <section className="flex mt-1">
-        <div className="mr-3 ">
-          <Link to="/profile">
-            <button className="py-1 px-2 rounded-lg ">
-              <UserCircleIcon className="h-6 w-6" />
+        <div className="mr-3">
+          {Login ? (
+            <button className="hover:bg-green-500 py-1 px-2 rounded-lg">
+              Log out
             </button>
-          </Link>
+          ) : (
+            <Link to="/login">
+              <button className="hover:bg-green-500 py-1 px-2 rounded-lg">
+                Login
+              </button>
+            </Link>
+          )}
         </div>
         <div className="mr-3 ">
-          <Link to="/login">
-            <button className="hover:bg-green-500 py-1 px-2 rounded-lg">
-              Login
+          <Link to="/shoppingcart">
+            <button>
+              <ShoppingCartIcon className="w-6 h-6" />
             </button>
           </Link>
         </div>
 
         <div>
-          <button onClick={changeMode} className="pr-3 pt-1">
+          <button onClick={changeMode} className="pr-3">
             <SunIcon className="h-6 w-6" />
           </button>
         </div>
+        <div className="pr-3">
+          <Bars3Icon className="h-6 w-6 text-black" onClick={toggleSidebar} />
+        </div>
+        {showSidebar && <Sidebar />}
       </section>
     </nav>
   );

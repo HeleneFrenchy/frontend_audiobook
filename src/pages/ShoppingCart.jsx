@@ -1,18 +1,21 @@
 import { TrashIcon } from "@heroicons/react/24/outline";
 import { useDeleteBooksFromCartMutation, useGetCartQuery } from "store/userApi";
 import { useGetBooksQuery } from "store/bookApi";
+import { useBooks } from "hooks/useBooks";
 
 const ShoppingCart = () => {
   const { data: cart = [] } = useGetCartQuery();
-  const { data: books = [] } = useGetBooksQuery();
   const [removeItem] = useDeleteBooksFromCartMutation();
-  const cartBooks = cart
-    .map((bookId) => books.find((book) => book._id === bookId))
-    .filter(Boolean);
+  const cartBooks = useBooks(cart);
 
   const handleRemoveItem = (bookId) => {
     removeItem(bookId);
   };
+
+  const totalPrice = cartBooks.reduce(
+    (total, book) => total + parseFloat(book.price),
+    0
+  );
 
   return (
     <div className="container mx-auto">
@@ -40,12 +43,7 @@ const ShoppingCart = () => {
             <h3>Price</h3>
             <p className="text-center text-sm">{book.price} €</p>
           </div>
-          <div className="mt-10 flex flex-col text-sm ">
-            <h3>Total</h3>
-            <p className="text-center text-sm">
-              {book.quantity * book.price} €
-            </p>
-          </div>
+
           <div className="mt-10 flex flex-col text-sm ">
             <button onClick={() => handleRemoveItem(book._id)}>
               <TrashIcon className="mt-1 w-4 h-4" />
@@ -53,6 +51,10 @@ const ShoppingCart = () => {
           </div>
         </div>
       ))}
+      <div className="flex justify-between mx-5 my-6 border-t-2">
+        <h3 className="mt-3">Total</h3>
+        <p className="mt-3">{totalPrice} €</p>
+      </div>
       <div className="flex justify-end mx-5 mt-5 md:mt-0">
         <button className="border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground rounded-md px-4 py-2 mr-2 md:mr-5">
           CONTINUE SHOPPING
