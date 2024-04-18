@@ -17,14 +17,14 @@ export const userApi = createApi({
 
   endpoints: (builder) => ({
     getBooksUser: builder.query({
-      query: ( ) => ({
+      query: () => ({
         url: `/books/`,
         method: "GET",
       }),
     }),
 
     deleteBook: builder.mutation({
-      query: ({bookId }) => ({
+      query: ({ bookId }) => ({
         url: `/books/${bookId}`,
         method: "DELETE",
         body: {},
@@ -56,11 +56,11 @@ export const userApi = createApi({
     }),
 
     buyBook: builder.mutation({
-      query: ({}) => ({
+      query: () => ({
         url: `/purchase`,
         method: "POST",
-        body: {},
       }),
+      invalidatesTags: ["Cart", "Books"],
     }),
   }),
 });

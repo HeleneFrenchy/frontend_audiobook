@@ -10,7 +10,11 @@ const initialState = {
 export const authSlice = createSlice({
   name: "auth",
   initialState,
-  reducers: {},
+  reducers: {
+    logOut: (state) => {
+       state.user = null
+    },
+  },
   extraReducers: (builder) => {
     builder.addMatcher(
       authApi.endpoints.login.matchFulfilled,
@@ -26,3 +30,6 @@ export const authSlice = createSlice({
     // });
   },
 });
+export const {
+  logOut,
+} = authSlice.actions;

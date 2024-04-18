@@ -5,15 +5,17 @@ import {
   ShoppingCartIcon,
   Bars3Icon,
 } from "@heroicons/react/24/outline";
-import {Login} from "pages/Login"
 import Sidebar from "components/Sidebar";
 import { useDarkMode } from "components/DarkModeContext";
 import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { logOut } from "store/authSlice";
 
+const Navbar = ({}) => {
+  const user = useSelector((state) => state.auth.user);
+  const dispatch = useDispatch();
 
-
-const Navbar = ({Login}) => {
-   const [showSidebar, setShowSidebar] = useState(false);
+  const [showSidebar, setShowSidebar] = useState(false);
   const { isDarkMode, setIsDarkMode } = useDarkMode();
   const changeMode = () => {
     if (isDarkMode == false) {
@@ -48,8 +50,8 @@ const Navbar = ({Login}) => {
       </section>
       <section className="flex mt-1">
         <div className="mr-3">
-          {Login ? (
-            <button className="hover:bg-green-500 py-1 px-2 rounded-lg">
+          {user ? (
+            <button onClick= {()=>dispatch(logOut())}className="hover:bg-green-500 py-1 px-2 rounded-lg">
               Log out
             </button>
           ) : (

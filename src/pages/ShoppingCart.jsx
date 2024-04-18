@@ -1,15 +1,23 @@
 import { TrashIcon } from "@heroicons/react/24/outline";
-import { useDeleteBooksFromCartMutation, useGetCartQuery } from "store/userApi";
-import { useGetBooksQuery } from "store/bookApi";
+import {
+  useDeleteBooksFromCartMutation,
+  useGetCartQuery,
+  useBuyBookMutation,
+} from "store/userApi";
 import { useBooks } from "hooks/useBooks";
 
 const ShoppingCart = () => {
   const { data: cart = [] } = useGetCartQuery();
   const [removeItem] = useDeleteBooksFromCartMutation();
+  const [buyBooks] = useBuyBookMutation ();
   const cartBooks = useBooks(cart);
 
   const handleRemoveItem = (bookId) => {
     removeItem(bookId);
+  };
+
+  const handleBuyBooks = () => {
+    buyBooks();
   };
 
   const totalPrice = cartBooks.reduce(
@@ -59,7 +67,10 @@ const ShoppingCart = () => {
         <button className="border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground rounded-md px-4 py-2 mr-2 md:mr-5">
           CONTINUE SHOPPING
         </button>
-        <button className="bg-green-300 rounded-md px-4 dark:text-black">
+        <button
+          onClick={handleBuyBooks}
+          className="bg-green-300 rounded-md px-4 dark:text-black"
+        >
           CHECKOUT
         </button>
       </div>

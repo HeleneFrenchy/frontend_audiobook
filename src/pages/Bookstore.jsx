@@ -77,26 +77,23 @@ function Bookstore() {
     const matchesFilters = Object.keys(filters).every((key) => {
       if (!filters[key]) return true;
       if (key === "age") {
-        if (parseInt(filters[key]) === 3) {
-          return book.age <= 3;
-        } else if (parseInt(filters[key]) === 4) {
-          return book.age <= 4;
-        } else if (parseInt(filters[key]) === 5) {
-          return book.age <= 5;
-        } else if (parseInt(filters[key]) === 6) {
-          return book.age <= 6;
-        } else if (parseInt(filters[key]) === 7) {
-          return book.age <= 7;
+        const bookAge = parseInt(book.age); 
+        if (isNaN(bookAge)) return false; 
+        if (filters[key] === "3") {
+          return bookAge <= 3;
+        } else if (filters[key] === "4") {
+          return bookAge === 4;
+        } else if (filters[key] === "5") {
+          return bookAge === 5;
+        } else if (filters[key] === "6") {
+          return bookAge === 6;
+        } else if (filters[key] === "7") {
+          return bookAge === 7;
         }
       }
       if (key === "language") {
-        if (filters[key] === "en") {
-          return book.language.toLowerCase() === "en";
-        } else if (filters[key] === "fr") {
-          return book.language.toLowerCase() === "fr";
-        }
+        return book.language.toLowerCase() === filters[key].toLowerCase(); 
       }
-
       return book[key] === filters[key];
     });
 
@@ -118,7 +115,7 @@ function Bookstore() {
     <div>
       <div>
         <h1 className="text-2xl text-center mt-12 mb-12">Bookstore</h1>
-        <div className="flex justify-end">
+        <div className="flex justify-end mr-12">
           <input
             className="border border-gray-300 focus:border-gray-400 rounded-md px-3 outline-none"
             type="text"
