@@ -4,35 +4,31 @@ import { useState } from "react";
 import { useGetBooksUserQuery } from "store/userApi";
 import { useBooks } from "hooks/useBooks";
 
-function Book({ id, title, author, imgSrc, imgAlt }) {
-  const [expanded, setExpanded] = useState(false);
-
-  const toggleExpanded = () => {
-    setExpanded(!expanded);
-  };
-
+function Book({ id, title, author, imgSrc, imgAlt, description }) {
   return (
-    <div className="mx-3 my-10 flex flex-col items-start">
-      <Link to="/">
-        <img
-          className="mb-3"
-          src={imgSrc}
-          alt={imgAlt}
-          width={150}
-          height={150}
-        />
-      </Link>
-      <div className="flex flex-col w-36">
-        <p
-          className={`text-xs font-bold ${expanded ? "" : "truncate"}`}
-          onClick={toggleExpanded}
-        >
-          {title}
-        </p>
-
-        <p className="text-xs" onClick={toggleExpanded}>
-          {author}
-        </p>
+    <div className="mx-3 my-5 border-t-2">
+      <div className="flex mt-5">
+        <div>
+          <Link to="/">
+            <img
+              className="mb-3 rounded-md"
+              src={imgSrc}
+              alt={imgAlt}
+              width={150}
+              height={150}
+            />
+          </Link>
+        </div>
+        <div className="flex flex-col ml-5">
+          <p>{title}</p>
+          <p className="text-xs mt-2 italic">{author}</p>
+          <p className="text-xs mt-2">{description}</p>
+        </div>
+        <div className="flex flex-col w-36 ml-5">
+          <button className="bg-green-300 rounded-md  dark:text-black ">
+            Play
+          </button>
+        </div>
       </div>
     </div>
   );
@@ -64,6 +60,7 @@ function Library() {
             id={book._id}
             title={book.title}
             author={book.author}
+            description={book.description}
             age={book.age}
             language={book.language}
             price={book.price}

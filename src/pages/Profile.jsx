@@ -5,7 +5,7 @@ export default function Profile() {
   
 
   return (
-    <div className="bg-white overflow-hidden shadow border dark:bg-black">
+    <div className="bg-white overflow-hidden shadow border dark:bg-black mt-12 container mx-auto rounded-md">
       <div className="px-4 py-5 sm:px-6 ">
         <h3 className="text-lg leading-6 font-medium text-gray-900 dark:text-white">
           User Profile
@@ -41,7 +41,7 @@ export default function Profile() {
       </div>
       <div className="py-5 text-center">
         <Link to="/updateprofile">
-          <button className="bg-green-300  hover:bg-green-500 text-black h-8 rounded-md px-3">
+          <button className="bg-green-300 text-black h-8 rounded-md px-3">
             Edit Profile
           </button>
         </Link>

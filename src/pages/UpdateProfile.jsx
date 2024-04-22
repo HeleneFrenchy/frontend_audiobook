@@ -101,7 +101,7 @@ export default function UpdateProfile() {
               </FormItem>
             )}
           />
-          <Button type="submit" className="bg-green-300 text-black">
+          <Button type="submit" className="bg-green-300 hover:bg-green-400 text-black">
             Update Profile
           </Button>
         </form>

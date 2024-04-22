@@ -15,6 +15,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useLoginMutation } from "store/authApi";
+import { Link } from "react-router-dom";
 
 const formSchema = z.object({
   email: z
@@ -96,6 +97,9 @@ export default function Login() {
           </Button>
         </form>
       </Form>
+      <Link to="/password">
+        <p className="mt-5 text-xs hover:text-blue-700">Password forgotten?</p>
+      </Link>
     </div>
   );
 }

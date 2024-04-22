@@ -10,6 +10,13 @@ import { useDarkMode } from "components/DarkModeContext";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { logOut } from "store/authSlice";
+import {
+  NavigationMenu,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  navigationMenuTriggerStyle,
+} from "components/ui/navigation-menu";
 
 const Navbar = ({}) => {
   const user = useSelector((state) => state.auth.user);
@@ -24,9 +31,6 @@ const Navbar = ({}) => {
       setIsDarkMode(false);
     }
   };
-  const toggleSidebar = () => {
-    setShowSidebar(!showSidebar);
-  };
 
   return (
     <nav className="flex items-center justify-between flex-wrap py-2 bg-green-300 dark:text-black">
@@ -40,45 +44,81 @@ const Navbar = ({}) => {
             height={50}
           />
         </Link>
-        <div className="ml-3 my-2">
-          <Link to="/bookstore">
-            <button className="hover:bg-green-500 py-1 px-2 rounded-lg">
-              Bookstore
-            </button>
-          </Link>
-        </div>
+
+        <NavigationMenu>
+          <NavigationMenuList>
+            <NavigationMenuItem className="ml-2 ">
+              <Link to="/bookstore" legacyBehavior passHref>
+                <NavigationMenuLink className= {navigationMenuTriggerStyle()}>
+                  Bookstore
+                </NavigationMenuLink>
+              </Link>
+            </NavigationMenuItem>
+          </NavigationMenuList>
+          <NavigationMenuList>
+            <NavigationMenuItem className="ml-2">
+              <Link to="/library" legacyBehavior passHref>
+                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                  My Library
+                </NavigationMenuLink>
+              </Link>
+            </NavigationMenuItem>
+          </NavigationMenuList>
+        </NavigationMenu>
       </section>
       <section className="flex mt-1">
-        <div className="mr-3">
-          {user ? (
-            <button onClick= {()=>dispatch(logOut())}className="hover:bg-green-500 py-1 px-2 rounded-lg">
-              Log out
-            </button>
-          ) : (
-            <Link to="/login">
-              <button className="hover:bg-green-500 py-1 px-2 rounded-lg">
-                Login
-              </button>
-            </Link>
-          )}
-        </div>
-        <div className="mr-3 ">
-          <Link to="/shoppingcart">
-            <button>
-              <ShoppingCartIcon className="w-6 h-6" />
-            </button>
-          </Link>
-        </div>
+        <NavigationMenu>
+          <NavigationMenuList>
+            <NavigationMenuItem className="ml-2">
+              <Link to="/shoppingcart" legacyBehavior passHref>
+                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                  <ShoppingCartIcon className="w-6 h-6" />
+                </NavigationMenuLink>
+              </Link>
+            </NavigationMenuItem>
+          </NavigationMenuList>
 
-        <div>
-          <button onClick={changeMode} className="pr-3">
-            <SunIcon className="h-6 w-6" />
-          </button>
-        </div>
-        <div className="pr-3">
-          <Bars3Icon className="h-6 w-6 text-black" onClick={toggleSidebar} />
-        </div>
-        {showSidebar && <Sidebar />}
+          <NavigationMenuList>
+            <NavigationMenuItem className="mx-2">
+              {user ? (
+                <NavigationMenuLink
+                  onClick={() => dispatch(logOut())}
+                  className={navigationMenuTriggerStyle()}
+                >
+                  LOGOUT
+                </NavigationMenuLink>
+              ) : (
+                <Link to="/login" legacyBehavior passHref>
+                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                    LOGIN
+                  </NavigationMenuLink>
+                </Link>
+              )}
+            </NavigationMenuItem>
+          </NavigationMenuList>
+          <NavigationMenuList>
+            <NavigationMenuItem className="mr-2">
+              <Link to="/profile" legacyBehavior passHref>
+                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                  My Profile
+                </NavigationMenuLink>
+              </Link>
+            </NavigationMenuItem>
+          </NavigationMenuList>
+
+          <NavigationMenuList>
+            <NavigationMenuItem className="mr-2">
+              <Link to="/shoppingcart" legacyBehavior passHref>
+                <NavigationMenuLink
+                  onClick={changeMode}
+                  className={navigationMenuTriggerStyle()}
+                >
+                  <SunIcon className="h-6 w-6" />
+                </NavigationMenuLink>
+              </Link>
+            </NavigationMenuItem>
+          </NavigationMenuList>
+        </NavigationMenu>
       </section>
     </nav>
   );

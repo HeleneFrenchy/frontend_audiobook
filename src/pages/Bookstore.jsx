@@ -8,7 +8,7 @@ import { useAddBooksToCartMutation } from "store/userApi";
 
 function Book({ id, title, author, age, language, price, imgSrc, imgAlt }) {
   const [addedToCart, setAddedToCart] = useState(false);
-  
+
   const [addToCart] = useAddBooksToCartMutation();
 
   const handleAddToCart = (bookId) => {
@@ -17,10 +17,10 @@ function Book({ id, title, author, age, language, price, imgSrc, imgAlt }) {
   };
 
   return (
-    <div className="mx-3 my-10 flex flex-col items-start">
+    <div className="mx-3 my-10 flex flex-col items-start ">
       <Link to="/">
         <img
-          className="mb-3"
+          className="mb-3 rounded-md"
           src={imgSrc}
           alt={imgAlt}
           width={150}
@@ -36,24 +36,26 @@ function Book({ id, title, author, age, language, price, imgSrc, imgAlt }) {
             {author}
           </p>
         </div>
-        <div>
-          <p className="text-xs">{age}</p>
+        <p className="text-xs">{age}</p>
+        <div className="flex flex-row justify-between">
           <p className="text-xs">{language}</p>
-        </div>
-        <div className="flex flex-col">
           <p className="text-xs">{price}€</p>
-          <div className="flex">
+        </div>
+
+        <div className="bg-green-300 rounded-md flex flex-row justify-between px-1 py-1 mt-2">
+          <button
+            onClick={() => handleAddToCart(id)}
+            className="flex items-center justify-between w-full"
+          >
             <div>
-              <button onClick={() => handleAddToCart(id)}>
-                <ShoppingCartIcon className="mt-1 w-4 h-4" />
-              </button>
+              <ShoppingCartIcon className="mt-1 w-4 h-4 m-auto dark:text-black" />
             </div>
-            <div>
-              {addedToCart && (
-                <HiCheck className="ml-1 w-4 h-4 text-blue-600" />
-              )}
-            </div>
-          </div>
+            {addedToCart && (
+              <div>
+                <HiCheck className="w-4 h-4 text-blue-600" />
+              </div>
+            )}
+          </button>
         </div>
       </div>
     </div>
@@ -77,8 +79,8 @@ function Bookstore() {
     const matchesFilters = Object.keys(filters).every((key) => {
       if (!filters[key]) return true;
       if (key === "age") {
-        const bookAge = parseInt(book.age); 
-        if (isNaN(bookAge)) return false; 
+        const bookAge = parseInt(book.age);
+        if (isNaN(bookAge)) return false;
         if (filters[key] === "3") {
           return bookAge <= 3;
         } else if (filters[key] === "4") {
@@ -92,7 +94,7 @@ function Bookstore() {
         }
       }
       if (key === "language") {
-        return book.language.toLowerCase() === filters[key].toLowerCase(); 
+        return book.language.toLowerCase() === filters[key].toLowerCase();
       }
       return book[key] === filters[key];
     });
@@ -115,7 +117,7 @@ function Bookstore() {
     <div>
       <div>
         <h1 className="text-2xl text-center mt-12 mb-12">Bookstore</h1>
-        <div className="flex justify-end mr-12">
+        <div className="flex justify-center">
           <input
             className="border border-gray-300 focus:border-gray-400 rounded-md px-3 outline-none"
             type="text"
@@ -125,7 +127,7 @@ function Bookstore() {
           />
           <div className="mx-3">
             <select
-              className="border border-gray-300 focus:border-gray-400 rounded-md py-1 pr-4 outline-none"
+              className="border border-gray-300 focus:border-gray-400 rounded-md py-1 pr-4 outline-none dark:text-black"
               value={filters.language}
               onChange={(e) => handleFilterChange("language", e.target.value)}
             >
@@ -134,9 +136,9 @@ function Bookstore() {
               <option value="fr">French</option>
             </select>
           </div>
-          <div className="mx-3">
+          <div className="mr-3">
             <select
-              className="border border-gray-300 focus:border-gray-400 rounded-md py-1 outline-none"
+              className="border border-gray-300 focus:border-gray-400 rounded-md py-1 outline-none dark:text-black"
               value={filters.age}
               onChange={(e) => handleFilterChange("age", e.target.value)}
             >
@@ -151,7 +153,7 @@ function Bookstore() {
         </div>
       </div>
 
-      <div className="flex flex-wrap justify-center items-end">
+      <div className="flex flex-wrap justify-center">
         {filteredBooks.map((book) => (
           <Book
             key={book._id}

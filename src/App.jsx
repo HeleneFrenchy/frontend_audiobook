@@ -6,6 +6,7 @@ import Library from "./pages/Library";
 import Bookstore from "./pages/Bookstore";
 import Profile from "pages/Profile";
 import ShoppingCart from "pages/ShoppingCart";
+import Password from "pages/Password";
 
 
 import { store } from "./store";
@@ -22,18 +23,20 @@ function App () {
       <DarkModeProvider>
         <Provider store={store}>
           <Navbar />
-          <Routes>
-            <Route path="/" element={<HomePage />}></Route>
-            <Route path="/library" element={<Library />}></Route>
-            <Route path="/bookstore" element={<Bookstore />}></Route>
+            <Routes>
+              <Route path="/" element={<HomePage />}></Route>
+              <Route path="/library" element={<Library />}></Route>
+              <Route path="/bookstore" element={<Bookstore />}></Route>
 
-            <Route path="/login" element={<Login />}></Route>
-            <Route path="/signup" element={<SignUp />}></Route>
-            <Route path="/profile" element={<Profile />}></Route>
+              <Route path="/login" element={<Login />}></Route>
+              <Route path="/password" element={<Password />}></Route>
 
-            <Route path="/updateprofile" element={<UpdateProfile />}></Route>
-            <Route path="/shoppingcart" element={<ShoppingCart />}></Route>
-          </Routes>
+              <Route path="/signup" element={<SignUp />}></Route>
+              <Route path="/profile" element={<Profile />}></Route>
+
+              <Route path="/updateprofile" element={<UpdateProfile />}></Route>
+              <Route path="/shoppingcart" element={<ShoppingCart />}></Route>
+            </Routes>
         </Provider>
       </DarkModeProvider>
     </>

@@ -50,8 +50,20 @@ export const authApi = createApi({
         },
       }),
     }),
+
+    password: builder.mutation({
+      query: ({ email }) => ({
+        url: "password",
+        method: "POST",
+        body: {
+          
+          email,
+          
+        },
+      }),
+    }),
   }),
 });
 
-export const { useSignUpMutation, useLoginMutation, useUpdateProfileMutation } =
+export const { useSignUpMutation, useLoginMutation, useUpdateProfileMutation, usePasswordMutation } =
   authApi;
