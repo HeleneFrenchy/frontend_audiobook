@@ -5,9 +5,7 @@ import {
   ShoppingCartIcon,
   Bars3Icon,
 } from "@heroicons/react/24/outline";
-import Sidebar from "components/Sidebar";
 import { useDarkMode } from "components/DarkModeContext";
-import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { logOut } from "store/authSlice";
 import {
@@ -22,7 +20,6 @@ const Navbar = ({}) => {
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
 
-  const [showSidebar, setShowSidebar] = useState(false);
   const { isDarkMode, setIsDarkMode } = useDarkMode();
   const changeMode = () => {
     if (isDarkMode == false) {
@@ -49,7 +46,7 @@ const Navbar = ({}) => {
           <NavigationMenuList>
             <NavigationMenuItem className="ml-2 ">
               <Link to="/bookstore" legacyBehavior passHref>
-                <NavigationMenuLink className= {navigationMenuTriggerStyle()}>
+                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                   Bookstore
                 </NavigationMenuLink>
               </Link>
@@ -77,7 +74,6 @@ const Navbar = ({}) => {
               </Link>
             </NavigationMenuItem>
           </NavigationMenuList>
-
           <NavigationMenuList>
             <NavigationMenuItem className="mx-2">
               {user ? (
@@ -96,15 +92,18 @@ const Navbar = ({}) => {
               )}
             </NavigationMenuItem>
           </NavigationMenuList>
-          <NavigationMenuList>
-            <NavigationMenuItem className="mr-2">
-              <Link to="/profile" legacyBehavior passHref>
-                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                  My Profile
-                </NavigationMenuLink>
-              </Link>
-            </NavigationMenuItem>
-          </NavigationMenuList>
+
+          {user && (
+            <NavigationMenuList>
+              <NavigationMenuItem className="mr-2">
+                <Link to="/profile" legacyBehavior passHref>
+                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                    My Profile
+                  </NavigationMenuLink>
+                </Link>
+              </NavigationMenuItem>
+            </NavigationMenuList>
+          )}
 
           <NavigationMenuList>
             <NavigationMenuItem className="mr-2">
