@@ -1,10 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import {
-  SunIcon,
-  ShoppingCartIcon,
-  Bars3Icon,
-} from "@heroicons/react/24/outline";
+import { SunIcon, ShoppingCartIcon } from "@heroicons/react/24/outline";
 import { useDarkMode } from "components/DarkModeContext";
 import { useSelector, useDispatch } from "react-redux";
 import { logOut } from "store/authSlice";
@@ -21,7 +17,6 @@ const Navbar = ({}) => {
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
 
-
   const { isDarkMode, setIsDarkMode } = useDarkMode();
   const changeMode = () => {
     if (isDarkMode == false) {
@@ -31,7 +26,10 @@ const Navbar = ({}) => {
     }
   };
 
-  
+  const handleLogOut = () => {
+    dispatch(logOut());
+    window.location.reload();
+  };
 
   return (
     <nav className="flex justify-between flex-wrap py-2 bg-green-300 dark:text-black">
@@ -82,7 +80,7 @@ const Navbar = ({}) => {
             <NavigationMenuItem className="mx-2">
               {user ? (
                 <NavigationMenuLink
-                  onClick={() => dispatch(logOut())}
+                  onClick={() => handleLogOut()}
                   className={navigationMenuTriggerStyle()}
                 >
                   LOGOUT
@@ -111,19 +109,16 @@ const Navbar = ({}) => {
 
           <NavigationMenuList>
             <NavigationMenuItem className="mr-2">
-              <Link to="/shoppingcart" legacyBehavior passHref>
-                <NavigationMenuLink
-                  onClick={changeMode}
-                  className={navigationMenuTriggerStyle()}
-                >
-                  <SunIcon className="h-6 w-6" />
-                </NavigationMenuLink>
-              </Link>
+              <NavigationMenuLink
+                onClick={changeMode}
+                className={navigationMenuTriggerStyle()}
+              >
+                <SunIcon className="h-6 w-6" />
+              </NavigationMenuLink>
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
       </section>
-      
     </nav>
   );
 };

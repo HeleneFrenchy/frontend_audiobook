@@ -12,7 +12,9 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     logOut: (state) => {
-       state.user = null
+      state.user = null;
+
+      localStorage.removeItem("userToken");
     },
   },
   extraReducers: (builder) => {
@@ -26,10 +28,16 @@ export const authSlice = createSlice({
         localStorage.setItem("userToken", action.payload.token);
       }
     );
-    // builder.addMatcher(api.endpoints.logout.matchFulfilled, (state, action) => { state.user = null;
-    // });
+    builder.addMatcher(
+      authApi.endpoints.signUp.matchFulfilled,
+      (state, action) => {
+        state.user = {
+          token: action.payload.token,
+        };
+
+        localStorage.setItem("userToken", action.payload.token);
+      }
+    );
   },
 });
-export const {
-  logOut,
-} = authSlice.actions;
+export const { logOut } = authSlice.actions;

@@ -5,50 +5,46 @@ import {
   useBuyBookMutation,
 } from "store/userApi";
 import { useBooks } from "hooks/useBooks";
-import { useGetBooksUserQuery } from "store/userApi";
-import { useState, useEffect } from "react";
-
+import { useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 
 const ShoppingCart = () => {
-  const { data: cart = [], isLoading } = useGetCartQuery();
+  const { data: cart = [] } = useGetCartQuery();
   const [removeItem] = useDeleteBooksFromCartMutation();
-  const [buyBooks] = useBuyBookMutation ();
+  const [buyBooks] = useBuyBookMutation();
   const cartBooks = useBooks(cart);
+  const navigate = useNavigate();
+  const message = useMemo(
+    () => (cartBooks.length ? "" : "Your cart is empty"),
+    [cartBooks]
+  );
+
+  console.log("cart", cartBooks);
 
   const handleRemoveItem = (bookId) => {
     removeItem(bookId);
   };
 
-  const handleBuyBooks = () => {
-    buyBooks();
+  const handleBuyBooks = async () => {
+    await buyBooks();
+    navigate("/library");
   };
 
   const totalPrice = cartBooks.reduce(
     (total, book) => total + parseFloat(book.price),
     0
   );
-  const [message, setMessage] = useState("");
-
-  useEffect(() => {
-    if (isLoading) {
-      return;
-    }
-
-    if (!cartBooks.length) {
-      setMessage("Your cart is empty");
-    }
-  }, [isLoading]);
 
   return (
     <div className="container mx-auto">
-      <h2 className="mt-6 text-center text-lg">Shopping Basket</h2>
+      <h2 className="mt-6 text-center text-2xl">Shopping Basket</h2>
       <div className="text-center my-12">{message}</div>
+
       {cartBooks.map((book, index) => (
         <div
           key={index}
           className="flex flex-row justify-between mx-5 border-t-2"
         >
-         
           <div className="flex flex-col md:flex-row my-5">
             <img src={book.image} width="150" alt={book.title} />
             <div className="flex flex-col md:ml-5 w-20">
@@ -73,9 +69,9 @@ const ShoppingCart = () => {
               <TrashIcon className="mt-1 w-4 h-4" />
             </button>
           </div>
-          
         </div>
       ))}
+
       <div className="flex justify-between mx-5 mb-6 border-t-2">
         <h3 className="mt-3">Total</h3>
         <p className="mt-3">{totalPrice} €</p>
@@ -91,8 +87,6 @@ const ShoppingCart = () => {
           CHECKOUT
         </button>
       </div>
-
-      
     </div>
   );
 };

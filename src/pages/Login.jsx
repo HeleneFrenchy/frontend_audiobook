@@ -1,5 +1,5 @@
 import React from "react";
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   Form,
   FormControl,
@@ -42,15 +42,16 @@ export default function Login() {
   });
 
   async function onSubmit({ email, password }) {
-    try {
-      await login({ email, password });
-      navigate("/library");
-    } catch (error) {
+    const { error } = await login({ email, password });
+
+    if (error) {
       toast({
         variant: "destructive",
         title: "An error happened",
-        description: error.message,
+        description: error.data,
       });
+    } else {
+      navigate("/library");
     }
   }
 
@@ -96,7 +97,6 @@ export default function Login() {
           </Button>
         </form>
       </Form>
-      
     </div>
   );
 }

@@ -5,28 +5,37 @@ import { HiCheck } from "react-icons/hi";
 
 import { useGetBooksQuery } from "store/bookApi";
 import { useAddBooksToCartMutation } from "store/userApi";
+import { useToast } from "components/ui/use-toast";
 
 function Book({ id, title, author, age, language, price, imgSrc, imgAlt }) {
   const [addedToCart, setAddedToCart] = useState(false);
-
   const [addToCart] = useAddBooksToCartMutation();
+  const { toast } = useToast();
 
-  const handleAddToCart = (bookId) => {
-    addToCart(bookId);
-    setAddedToCart(true);
+  const handleAddToCart = async (bookId) => {
+    const { error } = await addToCart(bookId);
+    console.log(error);
+
+    if (error) {
+      toast({
+        variant: "destructive",
+        title: "An error happened",
+        description: error.data || error.message,
+      });
+    } else {
+      setAddedToCart(true);
+    }
   };
 
   return (
     <div className="mx-3 my-10 flex flex-col items-start ">
-      <Link to="/">
-        <img
-          className="mb-3 rounded-md"
-          src={imgSrc}
-          alt={imgAlt}
-          width={150}
-          height={150}
-        />
-      </Link>
+      <img
+        className="mb-3 rounded-md"
+        src={imgSrc}
+        alt={imgAlt}
+        width={150}
+        height={150}
+      />
       <div className="h-20 w-36">
         <div className="flex flex-col">
           <p className="text-xs font-bold overflow-hidden whitespace-nowrap max-w-full truncate hover:text-black">

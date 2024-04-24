@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Form,
   FormControl,
@@ -16,7 +17,7 @@ import { useForm } from "react-hook-form";
 import { useSignUpMutation } from "store/authApi";
 
 const formSchema = z.object({
-  Username: z.string().min(2, {
+  username: z.string().min(2, {
     message: "Username should be at least 2 characters long",
   }),
   email: z
@@ -32,7 +33,8 @@ const formSchema = z.object({
 
 export default function Signup() {
   const { toast } = useToast();
-  const [signup] = useSignUpMutation();
+  const [signUp, { error }] = useSignUpMutation();
+  const navigate = useNavigate();
 
   const form = useForm({
     resolver: zodResolver(formSchema),
@@ -44,14 +46,16 @@ export default function Signup() {
   });
 
   async function onSubmit({ username, email, password }) {
-    try {
-      await signup({ username, email, password });
-    } catch (error) {
+    const { error } = await signUp({ username, email, password });
+
+    if (error) {
       toast({
         variant: "destructive",
         title: "An error happened",
-        description: error.message,
+        description: error.data,
       });
+    } else {
+      navigate("/profile");
     }
   }
 
@@ -61,7 +65,7 @@ export default function Signup() {
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <FormField
             control={form.control}
-            name="name"
+            name="username"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Username</FormLabel>
@@ -72,10 +76,6 @@ export default function Signup() {
               </FormItem>
             )}
           />
-        </form>
-      </Form>
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <FormField
             control={form.control}
             name="email"
@@ -89,10 +89,6 @@ export default function Signup() {
               </FormItem>
             )}
           />
-        </form>
-      </Form>
-      <Form {...form}>
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
           <FormField
             control={form.control}
             name="password"

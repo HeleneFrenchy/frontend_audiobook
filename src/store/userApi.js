@@ -8,6 +8,8 @@ export const userApi = createApi({
       const token = getState().auth.user?.token;
       if (token) {
         headers.set("Authorization", `Bearer ${token}`);
+      } else {
+        throw new Error("User not signed in");
       }
 
       return headers;
@@ -17,6 +19,7 @@ export const userApi = createApi({
 
   endpoints: (builder) => ({
     getBooksUser: builder.query({
+      providesTags: ["Books"],
       query: () => ({
         url: `/books/`,
         method: "GET",
