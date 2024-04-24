@@ -8,6 +8,7 @@ import {
 import { useDarkMode } from "components/DarkModeContext";
 import { useSelector, useDispatch } from "react-redux";
 import { logOut } from "store/authSlice";
+
 import {
   NavigationMenu,
   NavigationMenuItem,
@@ -20,6 +21,7 @@ const Navbar = ({}) => {
   const user = useSelector((state) => state.auth.user);
   const dispatch = useDispatch();
 
+
   const { isDarkMode, setIsDarkMode } = useDarkMode();
   const changeMode = () => {
     if (isDarkMode == false) {
@@ -29,8 +31,10 @@ const Navbar = ({}) => {
     }
   };
 
+  
+
   return (
-    <nav className="flex items-center justify-between flex-wrap py-2 bg-green-300 dark:text-black">
+    <nav className="flex justify-between flex-wrap py-2 bg-green-300 dark:text-black">
       <section className="flex">
         <Link to="/">
           <img
@@ -119,6 +123,7 @@ const Navbar = ({}) => {
           </NavigationMenuList>
         </NavigationMenu>
       </section>
+      
     </nav>
   );
 };
