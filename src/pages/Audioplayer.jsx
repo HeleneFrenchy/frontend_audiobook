@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react"; 
 import useSound from "use-sound"; 
-import booksound from "components/sound/booksound.mp3"; // importing the music
-import { AiFillPlayCircle, AiFillPauseCircle } from "react-icons/ai"; // icons for play and pause
-import { BiSkipNext, BiSkipPrevious } from "react-icons/bi"; // icons for next and previous track
-import { IconContext } from "react-icons"; // for customazing the icons
+import booksound from "components/sound/booksound.mp3"; 
+import { AiFillPlayCircle, AiFillPauseCircle } from "react-icons/ai"; 
+import { BiSkipNext, BiSkipPrevious } from "react-icons/bi"; 
+import { IconContext } from "react-icons"; 
+import { useGetBooksUserQuery } from "store/userApi";
+
 
 const AudioPlayer = () => {
   const [isPlaying, setIsPlaying] = useState(false);
@@ -20,9 +22,9 @@ const AudioPlayer = () => {
   const [currTime, setCurrTime] = useState({
     min: "",
     sec: "",
-  }); // current position of the audio in minutes and seconds
+  }); 
 
-  const [seconds, setSeconds] = useState(); // current position of the audio in seconds
+  const [seconds, setSeconds] = useState(); 
 
   const sec = duration / 1000;
   const min = Math.floor(sec / 60);
@@ -35,7 +37,7 @@ const AudioPlayer = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       if (sound) {
-        setSeconds(sound.seek([])); // setting the seconds state with the current state
+        setSeconds(sound.seek([])); 
         const min = Math.floor(sound.seek([]) / 60);
         const sec = Math.floor(sound.seek([]) % 60);
         setCurrTime({
@@ -53,8 +55,8 @@ const AudioPlayer = () => {
         <h2 className="text-center my-5">Playing Now</h2>
         <img className="rounded-md" src="https://picsum.photos/200/200" />
         <div className="my-5">
-          <h3 className="">Rubaiyyan</h3>
-          <p className="">Qala</p>
+          <h3 className="">title</h3>
+          <p className="">author</p>
         </div>
         <div>
           <button className="">

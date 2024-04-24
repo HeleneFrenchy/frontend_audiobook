@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useGetBooksUserQuery } from "store/userApi";
 import { useBooks } from "hooks/useBooks";
 
-function Book({ id, title, author, imgSrc, imgAlt, description }) {
+function Book({ id, title, author, imgSrc, imgAlt, description}) {
   return (
     <div className="mx-3 my-5 border-t-2">
       <div className="flex mt-5">
@@ -25,9 +25,11 @@ function Book({ id, title, author, imgSrc, imgAlt, description }) {
           <p className="text-xs mt-2">{description}</p>
         </div>
         <div className="flex flex-col w-36 ml-5">
-          <button className="bg-green-300 rounded-md  dark:text-black ">
-            Play
-          </button>
+          <Link to="/audioplayer">
+            <button className="bg-green-300 rounded-md px-10 dark:text-black ">
+              Play
+            </button>
+          </Link>
         </div>
       </div>
     </div>

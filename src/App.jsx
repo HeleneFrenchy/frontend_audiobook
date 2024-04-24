@@ -6,18 +6,14 @@ import Bookstore from "./pages/Bookstore";
 import Profile from "pages/Profile";
 import ShoppingCart from "pages/ShoppingCart";
 
-
-
 import { store } from "./store";
 import { Provider } from "react-redux";
 import { DarkModeProvider } from "components/DarkModeContext";
 import HomePage from "pages/HomePage";
 import Navbar from "components/Navbar";
-import Audioplayer from "components/Audioplayer";
+import Audioplayer from "pages/Audioplayer";
 
-
-function App () {
-
+function App() {
   return (
     <>
       <DarkModeProvider>

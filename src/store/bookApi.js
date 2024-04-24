@@ -25,9 +25,17 @@ export const bookApi = createApi({
           searchParams.set("language", filters.language);
         }
 
-         if (filters?.price) {
-           searchParams.set("price", filters.price);
-         }
+        if (filters?.price) {
+          searchParams.set("price", filters.price);
+        }
+
+        if (filters?.description) {
+          searchParams.set("description", filters.description);
+        }
+
+        if (filters?.audio) {
+          searchParams.set("audio", filters.audio);
+        }
 
         let query = "";
         if (searchParams.toString()) {

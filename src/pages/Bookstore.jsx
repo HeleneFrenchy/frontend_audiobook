@@ -114,18 +114,18 @@ function Bookstore() {
   };
 
   return (
-    <div>
+    <div className="container">
       <div>
         <h1 className="text-2xl text-center mt-12 mb-12">Bookstore</h1>
-        <div className="flex justify-center">
+        <div className="flex flex-col justify-center gap-y-2 ml-3 sm:flex-row gap-x-2">
           <input
-            className="border border-gray-300 focus:border-gray-400 rounded-md px-3 outline-none"
+            className="border border-gray-300 focus:border-gray-400 rounded-md px-3 outline-none w-1/4"
             type="text"
             placeholder="Search..."
             value={searchQuery}
             onChange={handleSearchInputChange}
           />
-          <div className="mx-3">
+          <div className="">
             <select
               className="border border-gray-300 focus:border-gray-400 rounded-md py-1 pr-4 outline-none dark:text-black"
               value={filters.language}
