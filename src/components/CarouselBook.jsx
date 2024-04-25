@@ -7,6 +7,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "components/ui/carousel";
+import { Link } from "react-router-dom";
 
 
 export function CarouselBook() {
@@ -25,22 +26,24 @@ export function CarouselBook() {
       }}
       className="w-full max-w-md m-auto mt-12"
     >
-      <CarouselContent>
-        {images.map((url, index) => (
-          <CarouselItem key={index} className="w-full md:basis-2/6">
-            <div>
-              <Card>
-                <CardContent className="flex aspect-square items-center justify-center p-0">
-                  <img
-                    src={url}
-                    className="object-cover rounded-md h-full w-full"
-                  />
-                </CardContent>
-              </Card>
-            </div>
-          </CarouselItem>
-        ))}
-      </CarouselContent>
+      <Link to="/bookstore">
+        <CarouselContent>
+          {images.map((url, index) => (
+            <CarouselItem key={index} className="w-full md:basis-2/6">
+              <div>
+                <Card>
+                  <CardContent className="flex aspect-square items-center justify-center p-0">
+                    <img
+                      src={url}
+                      className="object-cover rounded-md h-full w-full"
+                    />
+                  </CardContent>
+                </Card>
+              </div>
+            </CarouselItem>
+          ))}
+        </CarouselContent>
+      </Link>
       <CarouselPrevious />
       <CarouselNext />
     </Carousel>
