@@ -41,11 +41,6 @@ const AudioPlayer = () => {
           <p className="">{book?.author}</p>
         </div>
         <div className="mb-5">
-          <button>
-            <IconContext.Provider value={{ size: "3em", color: "#27AE60" }}>
-              <BiSkipPrevious />
-            </IconContext.Provider>
-          </button>
           {!isPlaying ? (
             <button className="" onClick={playingButton}>
               <IconContext.Provider value={{ size: "3em", color: "#27AE60" }}>
@@ -59,11 +54,6 @@ const AudioPlayer = () => {
               </IconContext.Provider>
             </button>
           )}
-          <button className="">
-            <IconContext.Provider value={{ size: "3em", color: "#27AE60" }}>
-              <BiSkipNext />
-            </IconContext.Provider>
-          </button>
         </div>
       </div>
     </div>

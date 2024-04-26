@@ -43,7 +43,7 @@ export default function Login() {
 
   async function onSubmit({ email, password }) {
     const { error } = await login({ email, password });
-
+    
     if (error) {
       toast({
         variant: "destructive",
