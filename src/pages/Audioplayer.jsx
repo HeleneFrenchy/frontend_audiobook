@@ -43,7 +43,7 @@ const AudioPlayer = () => {
         <div className="mb-5">
           {!isPlaying ? (
             <button className="" onClick={playingButton}>
-              <IconContext.Provider value={{ size: "3em", color: "#27AE60" }}>
+              <IconContext.Provider value={{ size: "5em", color: "#27AE60" }}>
                 <AiFillPlayCircle />
               </IconContext.Provider>
             </button>

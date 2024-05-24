@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const authApi = createApi({
   reducerPath: "authApi",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:3001/auth/",
+    baseUrl: "https://audiobookbackend-production.up.railway.app/auth/",
     prepareHeaders: (headers, { getState }) => {
       const token = getState().auth.user?.token;
       if (token) {

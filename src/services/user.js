@@ -1,4 +1,4 @@
-const apiUrl = "http://localhost:3001";
+const apiUrl = "https://audiobookbackend-production.up.railway.app";
 
 async function request(url, method, body) {
   const response = await fetch(url, {
